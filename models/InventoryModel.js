@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const InventorySchema = new mongoose.Schema({
   productId: {
-    Object: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
-    required: True,
+    required: true,
   },
   warehouseId: {
-    Object: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Warehouse",
     required: true,
   },
