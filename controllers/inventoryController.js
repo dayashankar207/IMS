@@ -113,4 +113,18 @@ const lowStock = async (req, res) => {
   }
 };
 
-export { addStock, removeStock, stockStats, lowStock };
+const stockByWarehouse = async (req, res) => {
+  try {
+    const { warehouseId } = req.params;
+    const stock = await Inventory.find({ warehouseId })
+      .populate("productId", "-price")
+      .populate("warehouseId", "name");
+    const totalStock = stock.reduce((sum, item) => sum + item.quantity, 0);
+    res.status(200).json({ stock, totalStock });
+  } catch (err) {
+    console.error("Error in stockByWarehouse:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+export { addStock, removeStock, stockStats, lowStock, stockByWarehouse };
